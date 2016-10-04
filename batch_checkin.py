@@ -4,8 +4,6 @@ import sys
 import csv
 import xml.etree.ElementTree as ET
 
-apikey = "l7xx99bfe8556330412ca0df66d724e8cbf6"
-baseurl = "https://api-na.hosted.exlibrisgroup.com"
 campuscode =  "01CALS_UHL"
 library = "CSUEB-CIRC"
 circdesk = "DEFAULT_CIRC_DESK"
