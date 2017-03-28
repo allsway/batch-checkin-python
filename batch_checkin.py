@@ -16,7 +16,6 @@ config = ConfigParser.RawConfigParser()
 config.read(sys.argv[1])
 apikey = config.get('Params', 'apikey')
 baseurl = config.get('Params','baseurl')
-campuscode =  config.get('Params', 'campuscode')
 library = config.get('Params','library')
 circdesk = config.get('Params','circdesk')
 
