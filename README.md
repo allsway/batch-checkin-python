@@ -14,7 +14,6 @@ Configuration setup can be modified in the file batch-checkin.txt.  Set the chec
 [Params]
 apikey: apikey 
 baseurl: https://api-na.hosted.exlibrisgroup.com
-campuscode: campucode
 library: librarycode
 circdesk: circdeskcode
 ```
