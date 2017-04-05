@@ -2,7 +2,7 @@
 import requests
 import sys
 import csv
-import ConfigParser
+import configparser
 import xml.etree.ElementTree as ET
 
 def createurl(row):
@@ -12,7 +12,7 @@ def createurl(row):
 	return '/almaws/v1/bibs/' + bib_id + '/holdings/'+ holding_id +'/items/' + item_id; 
 
 # Read campus parameters
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 config.read(sys.argv[1])
 apikey = config.get('Params', 'apikey')
 baseurl = config.get('Params','baseurl')
@@ -27,14 +27,14 @@ query = '?op=scan' + '&library=' + library + '&circ_desk=' + circdesk
 f = open(items_file, 'rt')
 try:
     reader = csv.reader(f)
-    reader.next() #skip header line
+    next(reader)#skip header line
     for row in reader:
     	if row[0] != 'end-of-file':
-			apicall = createurl(row)
-			url =  baseurl + apicall + query
-			print url
-			response = requests.post(url, data={'apikey' : apikey})
-			print response.content
+    		apicall = createurl(row)
+    		url = baseurl + apicall + query
+    		print (url)
+    		response = requests.post(url, data={'apikey' : apikey})
+    		print (response.content)
 finally:
     f.close()
 	
