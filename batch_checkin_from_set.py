@@ -23,20 +23,15 @@ def get_library():
 def get_set_id():
     return config.get('Params', 'setid')
 
-# Returns the set ID from the configuratin file.  All items in this set will be checked in.
+# Returns the set ID from the configuration file.  All items in this set will be checked in.
 def get_set_url():
     return get_base_url() + '/almaws/v1/conf/sets/' + get_set_id() + '/members?apikey=' + get_key()
-
-# Creates the meat of the URL
-
 
 # Reads in the file of items and performs scan in opertion on each item
 def read_items():
     set_url = get_set_url()
-    print (set_url)
     response = requests.get(set_url)
     if response.status_code == 200:
-        print(response.content)
         members = ET.fromstring(response.content)
         query = '?op=scan' + '&library=' + get_library() + '&circ_desk=' + get_circdesk()
         for member in members.findall('./member'):
