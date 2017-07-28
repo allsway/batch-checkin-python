@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import requests
 import sys
-import csv
 import configparser
 import xml.etree.ElementTree as ET
 
@@ -24,6 +23,7 @@ def get_library():
 def get_set_id():
     return config.get('Params', 'setid')
 
+# Returns the set ID from the configuratin file.  All items in this set will be checked in.
 def get_set_url():
     return get_base_url() + '/almaws/v1/conf/sets/' + get_set_id() + '/members?apikey=' + get_key()
 
@@ -38,12 +38,13 @@ def read_items():
     if response.status_code == 200:
         print(response.content)
         members = ET.fromstring(response.content)
+        query = '?op=scan' + '&library=' + get_library() + '&circ_desk=' + get_circdesk()
         for member in members.findall('./member'):
             item_url = member.get('link')
-    query = '?op=scan' + '&library=' + get_library() + '&circ_desk=' + get_circdesk()
-    url =  item_url + query
-    print (url)
-#    response = requests.post(url, data={'apikey' : get_key()})
+            url =  item_url + query
+            print (url)
+            post_response = requests.post(url, data={'apikey' : get_key()})
+            print(post_response.content)
 
 
 # Read campus parameters
