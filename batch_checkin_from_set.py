@@ -36,7 +36,6 @@ def read_items():
         for member in members.findall('./member'):
             item_url = member.get('link')
             url =  item_url + query
-            print (url)
             post_response = requests.post(url, data={'apikey' : get_key()})
             print(post_response.content)
 
