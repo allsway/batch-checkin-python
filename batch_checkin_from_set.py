@@ -20,6 +20,7 @@ def get_circdesk():
 def get_library():
     return config.get('Params','library')
 
+# Returns the ID number for the set of items to be scanned in.  You can get this from the Manage Sets | Edit screen.
 def get_set_id():
     return config.get('Params', 'setid')
 
@@ -38,7 +39,6 @@ def read_items():
             url =  item_url + query
             post_response = requests.post(url, data={'apikey' : get_key()})
             print(post_response.content)
-
 
 # Read campus parameters
 config = configparser.RawConfigParser()
