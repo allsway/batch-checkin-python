@@ -30,15 +30,20 @@ def get_set_url():
 
 # Reads in the file of items and performs scan in opertion on each item
 def read_items():
+    limit = 100
     response = requests.get(get_set_url())
     if response.status_code == 200:
         members = ET.fromstring(response.content)
-        query = '?op=scan' + '&library=' + get_library() + '&circ_desk=' + get_circdesk()
-        for member in members.findall('./member'):
-            item_url = member.get('link')
-            url =  item_url + query
-            post_response = requests.post(url, data={'apikey' : get_key()})
-            print(post_response.content)
+        total_in_set = int(members.get('total_record_count'))
+        offset = 0
+        for x in range(offset,total_in_set):
+            query = '?op=scan' + '&library=' + get_library() + '&circ_desk=' + get_circdesk()
+            for member in members.findall('./member'):
+                item_url = member.get('link')
+                url =  item_url + query
+                post_response = requests.post(url, data={'apikey' : get_key()})
+                print(post_response.content)
+            offset += limit
 
 # Read campus parameters
 config = configparser.RawConfigParser()
